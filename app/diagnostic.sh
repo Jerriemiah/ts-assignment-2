@@ -11,6 +11,7 @@ case "$subcommand" in
         # Either:
         #   - call a function: do_system_info
         #   - or: /app/system-info.sh
+        ./system-info.sh
         ;;
 
     network)
@@ -21,11 +22,13 @@ case "$subcommand" in
         fi
         # Run network-check logic for $host
         # Either via function or by calling /app/network-check.sh "$host"
+        /app/network-check.sh "$host"
         ;;
 
     disk)
         # Run disk-info logic
         # Either via function or by calling a disk script
+        /app/disk-check.sh
         ;;
 
     help|--help|-h)
