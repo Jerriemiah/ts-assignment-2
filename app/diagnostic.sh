@@ -22,13 +22,18 @@ case "$subcommand" in
         fi
         # Run network-check logic for $host
         # Either via function or by calling /app/network-check.sh "$host"
-        /app/network-check.sh "$host"
+        ./network-check.sh "$host"
         ;;
 
     disk)
         # Run disk-info logic
         # Either via function or by calling a disk script
-        /app/disk-check.sh
+        threshold=$2
+        if [[ -z "$threshold" ]]; then
+            echo "Error: disk subcommand requires a threshold"
+            exit 2
+        fi
+        ./disk-check.sh "$threshold"
         ;;
 
     help|--help|-h)
