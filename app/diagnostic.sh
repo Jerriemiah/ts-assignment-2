@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -u
+
+# Optional: source helper scripts or define functions here
+
+subcommand="${1:-}"
+
+case "$subcommand" in
+    system)
+        # Run system-info logic
+        # Either:
+        #   - call a function: do_system_info
+        #   - or: /app/system-info.sh
+        ;;
+
+    network)
+        host="${2:-}"
+        if [[ -z "$host" ]]; then
+            echo "Error: network subcommand requires a host"
+            exit 2
+        fi
+        # Run network-check logic for $host
+        # Either via function or by calling /app/network-check.sh "$host"
+        ;;
+
+    disk)
+        # Run disk-info logic
+        # Either via function or by calling a disk script
+        ;;
+
+    help|--help|-h)
+        # Print usage information:
+        # diagnostic system
+        # diagnostic network <host>
+        # diagnostic disk
+        # diagnostic help
+        ;;
+
+    "")
+        echo "Error: no subcommand provided"
+        echo "Use 'diagnostic help' for usage."
+        exit 2
+        ;;
+
+    *)
+        echo "Error: unknown subcommand '$subcommand'"
+        echo "Use 'diagnostic help' for usage."
+        exit 2
+        ;;
+esac
