@@ -3,10 +3,14 @@ set -u
 
 IMAGE="diagnostic-tool"
 FAILED=0
-threshold=$2
+THRESHOLD=10
 
 # Optionally build the image
-# docker build -t "$IMAGE" .
+  # Only build if the image doesn't exist
+if ! docker images --format "{{.Repository}}" | grep -q "^${IMAGE}$"; then
+    docker build -t "$IMAGE" .
+fi
+
 
 # ---------- Positive tests ----------
 
@@ -27,7 +31,7 @@ else
 fi
 
 # 3. disk command works (exit 0)
-if docker run --rm "$IMAGE" disk >/dev/null 2>&1; then
+if docker run --rm "$IMAGE" disk "$THRESHOLD" >/dev/null 2>&1; then
     echo "PASS: disk command succeeds"
 else
     echo "FAIL: disk command should succeed"
