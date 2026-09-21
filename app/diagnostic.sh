@@ -42,6 +42,7 @@ case "$subcommand" in
         # diagnostic network <host>
         # diagnostic disk
         # diagnostic help
+        cat help.txt
         ;;
 
     "")
